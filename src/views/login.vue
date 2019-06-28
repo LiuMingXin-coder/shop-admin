@@ -69,6 +69,10 @@ export default {
             data: this.form
           }).then(res => {
             console.log(res);
+            if(res.request.status===200){
+              // 如果拿到返回数据，把taken令牌保存到localStory
+              localStorage.setItem('token',res.data.data.token)
+            }
           });
         } else {
           console.log("error submit!!");
