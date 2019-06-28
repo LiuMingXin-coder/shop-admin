@@ -14,7 +14,7 @@
             </el-form-item>
 
             <el-form-item>
-              <el-button type="primary" @click="onSubmit">登录</el-button>
+              <el-button type="primary" @click="onSubmit('Form')">登录</el-button>
               <el-button @click="resetForm('Form')">重置</el-button>
             </el-form-item>
           </el-form>
@@ -25,19 +25,13 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       form: {
-        name: "",
-        password: ""
-        // region: "",
-        // date1: "",
-        // date2: "",
-        // delivery: false,
-        // type: [],
-        // resource: "",
-        // desc: ""
+        name: "admin",
+        password: "123456"
       },
       rules: {
         name: [
@@ -62,8 +56,27 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
+    onSubmit(Form) {
       console.log("submit!");
+      //   this.$refs[Form]拿到form表单，通过validate方法进行表单登录校验
+      // validate函数的参数是一个函数，该函数的参数形参valid是拿到的表单内容
+      this.$refs[Form].validate(valid => {
+        if (valid) {
+          console.log("验证成功，发送请求");
+          //   发送ajax请求，
+          axios({
+            url: "http://localhost:8888/api/private/v1/login",
+            methos: "post",
+            data: this.form
+          }).then(res => {
+            console.log("接收到数据");
+            console.log(res);
+          });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     resetForm(Form) {
       this.$refs[Form].resetFields();
