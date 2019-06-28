@@ -5,7 +5,7 @@
       <el-col :xs="14" :sm="12" :md="10" :lg="8" :xl="6">
         <!-- 控制的是form表单的最外侧边框 -->
         <div class="grid-content bg-purple-light">
-          <el-form ref="form" :model="form" label-width="80px" label-position="top" :rules="rules">
+          <el-form ref="Form" :model="form" label-width="80px" label-position="top" :rules="rules">
             <el-form-item label="用户名" prop="name">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
@@ -15,7 +15,7 @@
 
             <el-form-item>
               <el-button type="primary" @click="onSubmit">登录</el-button>
-              <el-button @click="resetForm('ruleForm')">重置</el-button>
+              <el-button @click="resetForm('Form')">重置</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -65,8 +65,8 @@ export default {
     onSubmit() {
       console.log("submit!");
     },
-    resetForm(formName) {
-      //   this.$refs[formName].resetFields();
+    resetForm(Form) {
+      this.$refs[Form].resetFields();
     }
   }
 };
