@@ -6,8 +6,8 @@
         <!-- 控制的是form表单的最外侧边框 -->
         <div class="grid-content bg-purple-light">
           <el-form ref="Form" :model="form" label-width="80px" label-position="top" :rules="rules">
-            <el-form-item label="用户名" prop="name">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="用户名" prop="username">
+              <el-input v-model="form.username"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
               <el-input v-model="form.password"></el-input>
@@ -30,11 +30,11 @@ export default {
   data() {
     return {
       form: {
-        name: "admin",
+        username: "admin",
         password: "123456"
       },
       rules: {
-        name: [
+        username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
           {
             min: 5,
@@ -62,14 +62,12 @@ export default {
       // validate函数的参数是一个函数，该函数的参数形参valid是拿到的表单内容
       this.$refs[Form].validate(valid => {
         if (valid) {
-          console.log("验证成功，发送请求");
           //   发送ajax请求，
           axios({
             url: "http://localhost:8888/api/private/v1/login",
-            methos: "post",
+            method: "post",
             data: this.form
           }).then(res => {
-            console.log("接收到数据");
             console.log(res);
           });
         } else {
